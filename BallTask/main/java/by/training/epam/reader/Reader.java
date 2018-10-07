@@ -2,9 +2,15 @@ package by.training.epam.reader;
 
 import java.util.List;
 
-import by.training.epam.entity.Ball;
+import by.training.epam.entity.RoundFigure;
+import by.training.epam.exception.EmptyURIException;
 
 public interface Reader {
+	
 	public void read();
-	public List<Ball> getBalls();
+
+	public void read(String uri) throws EmptyURIException;
+	
+	public List<RoundFigure> getBalls();
+
 }

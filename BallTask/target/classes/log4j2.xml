@@ -18,6 +18,9 @@
         <Logger name="by.training.epam.reader.impl.ReadFromFileImpl" level="error" additivity="true">
             <appender-ref ref="fileLogger" level="debug" />
         </Logger>
+        <Logger name="by.training.epam.action.impl.BallActionImpl" level="error" additivity="true">
+            <appender-ref ref="fileLogger" level="debug" />
+        </Logger>
         <Root level="fatal" additivity="false">
             <appender-ref ref="fileLogger" />
         </Root>

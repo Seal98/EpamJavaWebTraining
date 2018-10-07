@@ -11,15 +11,20 @@ import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.epam.entity.Ball;
+import by.training.epam.entity.RoundFigure;
+import by.training.epam.entity.impl.Ball;
+import by.training.epam.exception.EmptyURIException;
 import by.training.epam.parser.impl.ParserImpl;
 import by.training.epam.reader.Reader;
+import by.training.epam.validator.Validator;
 import by.training.epam.validator.impl.ValidatorImpl;
 
 public class ReadFromFileImpl implements Reader {
 
-	public static final String fileName = "input.txt";
-
+	private static final String fileName = "input.txt";
+	private static final Validator validator = new ValidatorImpl();
+	private static final String emptyString = "";
+	
 	private List<String> dataFromFile;
 	private List<String> validDataFromFile;
 	private static final Logger logger = LogManager.getLogger(ReadFromFileImpl.class);
@@ -38,14 +43,15 @@ public class ReadFromFileImpl implements Reader {
 		}
 	}
 
-	public static List<String> read(String fileName) {
-		List<String> dataFromFile = null;
-		try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+	public void read(String uri) throws EmptyURIException{
+		if(uri.equals(emptyString)) {
+			throw new EmptyURIException("URI is empty");
+		}
+		try (Stream<String> stream = Files.lines(Paths.get(uri))) {
 			dataFromFile = Arrays.asList(stream.toArray(size -> new String[size]));
 		} catch (IOException e) {
 			logger.error("Exception while reading from file: " + e.toString());
 		}
-		return dataFromFile;
 	}
 
 	public static List<String> getListCopy(List<String> list) {
@@ -57,10 +63,10 @@ public class ReadFromFileImpl implements Reader {
 	}
 
 	@Override
-	public List<Ball> getBalls() {
+	public List<RoundFigure> getBalls() {
 		validDataFromFile = getListCopy(dataFromFile);
-		ValidatorImpl.validator.validate(validDataFromFile);
-		List<Ball> listOfBalls = (new ParserImpl()).parseBalls(getListCopy(validDataFromFile));
+		validator.validate(validDataFromFile);
+		List<RoundFigure> listOfBalls = (new ParserImpl()).parseBalls(getListCopy(validDataFromFile));
 		return listOfBalls;
 	}
 }
