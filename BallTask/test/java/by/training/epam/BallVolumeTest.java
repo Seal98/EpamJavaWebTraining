@@ -3,9 +3,9 @@ package by.training.epam;
 import org.testng.annotations.Test;
 
 import by.training.epam.action.BallAction;
-import by.training.epam.action.impl.BallActionImpl;
-import by.training.epam.entity.impl.Ball;
-import by.training.epam.entity.impl.Point;
+import by.training.epam.action.BallActionImpl;
+import by.training.epam.entity.Ball;
+import by.training.epam.entity.Point;
 
 public class BallVolumeTest {
 
@@ -13,7 +13,8 @@ public class BallVolumeTest {
 	public void ballVolumeTest() {
 		Ball ball = new Ball(5, new Point(0, 0, 0));
 		BallAction bai = new BallActionImpl();
-		double expectedValue = Math.PI * 4 / 3 * 125;
+		double k = 4.0/3;
+		double expectedValue = Math.PI * 125 * k;
 		assert bai.ballVolume(ball) == expectedValue;
 	}
 }

@@ -3,9 +3,9 @@ package by.training.epam;
 import org.testng.annotations.Test;
 
 import by.training.epam.action.BallAction;
-import by.training.epam.action.impl.BallActionImpl;
-import by.training.epam.entity.impl.Ball;
-import by.training.epam.entity.impl.Point;
+import by.training.epam.action.BallActionImpl;
+import by.training.epam.entity.Ball;
+import by.training.epam.entity.Point;
 
 public class BallSurfaceAreaTest {
 
